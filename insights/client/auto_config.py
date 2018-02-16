@@ -1,15 +1,16 @@
 """
 Auto Configuration Helper
 """
+from __future__ import absolute_import
 import logging
 import os
 import requests
 from urlparse import urlparse
 
-from constants import InsightsConstants as constants
-from cert_auth import rhsmCertificate
-from connection import InsightsConnection
-from config import CONFIG as config
+from .constants import InsightsConstants as constants
+from .cert_auth import rhsmCertificate
+from .connection import InsightsConnection
+from .config import CONFIG as config
 
 logger = logging.getLogger(__name__)
 APP_NAME = constants.app_name

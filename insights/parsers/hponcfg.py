@@ -63,7 +63,7 @@ class HponConf(Parser):
         while True:
             try:
 
-                line = line_iter.next()
+                line = next(line_iter)
 
                 if 'Firmware Revision' in line:
                     line = line.replace('Firmware Revision', '').replace('Device type', '').replace('Driver name', '')

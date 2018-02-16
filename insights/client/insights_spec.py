@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import os
 import re
 import errno
@@ -7,8 +8,8 @@ import six
 from subprocess import Popen, PIPE, STDOUT
 from tempfile import NamedTemporaryFile
 
-from constants import InsightsConstants as constants
-from config import CONFIG as config
+from .constants import InsightsConstants as constants
+from .config import CONFIG as config
 
 logger = logging.getLogger(__name__)
 

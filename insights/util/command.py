@@ -1,5 +1,6 @@
 import os
 import shlex
+from functools import reduce
 
 
 def retarget_command_for_mountpoint(command):

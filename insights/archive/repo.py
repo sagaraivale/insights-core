@@ -63,7 +63,7 @@ def build_integration_test_archive(module_name, i, test_tuple, dest, machine_id=
         print("X", end="")
     else:
         if console:
-            print("m" if isinstance(input_data, types.ListType) else ".", end="")
+            print("m" if isinstance(input_data, list) else ".", end="")
             sys.stdout.flush()
         return {
             "module": module_name,

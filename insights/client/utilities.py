@@ -1,6 +1,7 @@
 """
 Utility functions
 """
+from __future__ import absolute_import
 import socket
 import os
 import logging
@@ -13,8 +14,8 @@ import json
 from subprocess import Popen, PIPE, STDOUT
 from insights.contrib.ConfigParser import RawConfigParser
 
-from constants import InsightsConstants as constants
-from config import CONFIG as config
+from .constants import InsightsConstants as constants
+from .config import CONFIG as config
 
 logger = logging.getLogger(__name__)
 

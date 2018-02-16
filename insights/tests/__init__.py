@@ -1,3 +1,4 @@
+from __future__ import print_function
 import copy
 import itertools
 import json
@@ -56,7 +57,7 @@ def run_input_data(component, input_data):
     graph = dr.get_dependency_graph(component)
     broker = dr.run(graph, broker=broker)
     for v in broker.tracebacks.values():
-        print v
+        print(v)
     return broker
 
 

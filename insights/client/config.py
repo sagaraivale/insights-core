@@ -1,9 +1,10 @@
+from __future__ import absolute_import
 import logging
 import optparse
 import os
 from insights.contrib import ConfigParser
 
-from constants import InsightsConstants as constants
+from .constants import InsightsConstants as constants
 
 logger = logging.getLogger(__name__)
 

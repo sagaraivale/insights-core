@@ -1,3 +1,4 @@
+from __future__ import print_function
 # module pyparsing.py
 #
 # Copyright (c) 2003-2015  Paul T. McGuire
@@ -109,7 +110,7 @@ if PY_3:
     singleArgBuiltins = [sum, len, sorted, reversed, list, tuple, set, any, all, min, max]
 
 else:
-    _MAX_INT = sys.maxint
+    _MAX_INT = sys.maxsize
     range = xrange
 
     def _ustr(obj):

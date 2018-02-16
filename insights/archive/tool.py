@@ -102,7 +102,7 @@ class TempOverlay(BaseArchive):
             self.add_file(path, content)
 
     def add_file(self, path, content):
-        if not isinstance(path, types.StringTypes):
+        if not isinstance(path, str):
             raise ValueError("Invalid path type: {0}".format(type(path)))
         # We don't allow absolute paths
         if content:

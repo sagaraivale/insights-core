@@ -1,6 +1,7 @@
+from __future__ import absolute_import
 from insights.parsers.lvm import Pvs, PvsHeadings
 from insights.tests import context_wrap
-from test_lvm import compare_partial_dicts
+from .test_lvm import compare_partial_dicts
 
 PVS_INFO = """
     WARNING: Locking disabled. Be careful! This could corrupt your metadata.

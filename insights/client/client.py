@@ -1,3 +1,5 @@
+from __future__ import print_function
+from __future__ import absolute_import
 import sys
 import json
 import logging
@@ -6,20 +8,20 @@ import os
 import time
 import shutil
 
-from auto_config import (_try_satellite6_configuration,
+from .auto_config import (_try_satellite6_configuration,
                          _try_satellite5_configuration)
-from utilities import (generate_machine_id,
+from .utilities import (generate_machine_id,
                        generate_analysis_target_id,
                        write_to_disk,
                        write_unregistered_file,
                        determine_hostname)
-from collection_rules import InsightsConfig
-from data_collector import DataCollector
-from connection import InsightsConnection
-from archive import InsightsArchive
-from support import registration_check
-from constants import InsightsConstants as constants
-from config import CONFIG as config
+from .collection_rules import InsightsConfig
+from .data_collector import DataCollector
+from .connection import InsightsConnection
+from .archive import InsightsArchive
+from .support import registration_check
+from .constants import InsightsConstants as constants
+from .config import CONFIG as config
 
 LOG_FORMAT = ("%(asctime)s %(levelname)8s %(name)s %(message)s")
 INSIGHTS_CONNECTION = None
@@ -35,7 +37,7 @@ def get_file_handler():
     log_file = config['logging_file']
     log_dir = os.path.dirname(log_file)
     if not os.path.exists(log_dir):
-        os.makedirs(log_dir, 0700)
+        os.makedirs(log_dir, 0o700)
     file_handler = logging.handlers.RotatingFileHandler(
         log_file, backupCount=3)
     file_handler.setFormatter(logging.Formatter(LOG_FORMAT))
@@ -66,7 +68,7 @@ def configure_level():
 
     init_log_level = logging.getLevelName(config_level)
     if type(init_log_level) in (str, unicode):
-        print "Invalid log level %s, defaulting to DEBUG" % config_level
+        print("Invalid log level %s, defaulting to DEBUG" % config_level)
         init_log_level = logging.DEBUG
 
     logger.setLevel(init_log_level)
@@ -285,7 +287,7 @@ def collect(rc=0):
         logger.debug("Client running in container/image mode.")
         logger.debug("Scanning for matching container/image.")
 
-        from containers import get_targets
+        from .containers import get_targets
         targets = get_targets()
 
     # the host
@@ -341,12 +343,12 @@ def collect(rc=0):
             # analyze docker images
             if t['type'] == 'docker_image':
 
-                from containers import open_image
+                from .containers import open_image
                 container_connection = open_image(t['name'])
                 logging_name = 'Docker image ' + t['name']
                 archive_meta['docker_id'] = t['name']
 
-                from containers import docker_display_name
+                from .containers import docker_display_name
                 archive_meta['display_name'] = docker_display_name(
                     t['name'], t['type'].replace('docker_', ''))
 
@@ -361,13 +363,13 @@ def collect(rc=0):
 
             # analyze docker containers
             elif t['type'] == 'docker_container':
-                from containers import open_container
+                from .containers import open_container
                 container_connection = open_container(t['name'])
 
                 logging_name = 'Docker container ' + t['name']
                 archive_meta['docker_id'] = t['name']
 
-                from containers import docker_display_name
+                from .containers import docker_display_name
                 archive_meta['display_name'] = docker_display_name(
                     t['name'], t['type'].replace('docker_', ''))
                 logger.debug('Docker display_name: %s', archive_meta['display_name'])
@@ -384,7 +386,7 @@ def collect(rc=0):
 
                 logging_name = 'Compressed file ' + t['name'] + ' at location ' + t['location']
 
-                from compressed_file import InsightsCompressedFile
+                from .compressed_file import InsightsCompressedFile
                 compressed_filesystem = InsightsCompressedFile(t['location'])
 
                 if compressed_filesystem.is_tarfile is False:
