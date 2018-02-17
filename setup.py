@@ -20,13 +20,23 @@ entry_points = {
 }
 
 runtime = set([
-    'argparse',
     'pyyaml>=3.10,<=3.12',
     'six',
+])
+
+try:
+    import importlib # noqa
+except ImportError:
+    runtime.add("importlib")
+
+try:
+    import argparse # noqa
+except ImportError:
+    runtime.add("argparse")
+
+client = set([
     'requests',
     'pyOpenSSL',
-    'importlib',
-    'Jinja2==2.9.6',
 ])
 
 develop = set([
@@ -40,7 +50,6 @@ develop = set([
     'futures==3.0.5',
     'requests==2.13.0',
     'wheel',
-    'six',
     'ipython<6',
 ])
 
@@ -61,7 +70,8 @@ if __name__ == "__main__":
         package_data={'': ['LICENSE']},
         license='Apache 2.0',
         extras_require={
-            'develop': list(runtime | develop),
+            'develop': list(runtime | develop | client),
+            'client': list(runtime | client),
             'optional': ['python-cjson', 'python-logstash', 'python-statsd', 'watchdog'],
         },
         classifiers=[

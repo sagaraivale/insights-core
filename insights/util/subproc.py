@@ -3,6 +3,7 @@ import shlex
 import signal
 import subprocess
 import sys
+import six
 
 log = logging.getLogger(__name__)
 
@@ -93,7 +94,7 @@ def call(cmd, timeout=None, signum=signal.SIGKILL, shell=False, stdout=STDOUT, s
         output = p.communicate()[0]
         rc = p.poll()
     except Exception as e:
-        raise CalledProcessError(rc, cmd, str(e)), None, sys.exc_info()[2]
+        six.reraise(CalledProcessError, CalledProcessError(rc, cmd, str(e)), sys.exc_info()[2])
     if keep_rc:
         return rc, output
     if rc:

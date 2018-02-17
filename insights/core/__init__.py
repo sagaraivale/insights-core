@@ -6,6 +6,7 @@ import os
 import re
 import shlex
 import yaml
+import six
 from insights.contrib.ConfigParser import RawConfigParser
 
 from insights.parsers import ParseException
@@ -381,7 +382,7 @@ class ScanMeta(type):
         return super(ScanMeta, cls).__new__(cls, name, parents, dct)
 
 
-class Scannable(Parser):
+class Scannable(six.with_metaclass(ScanMeta, Parser)):
     """
     A class to enable early and easy collection of data in a file.
 
@@ -440,8 +441,6 @@ class Scannable(Parser):
 
     """
 
-    __metaclass__ = ScanMeta
-
     @classmethod
     def _scan(cls, result_key, scanner):
         """
@@ -498,7 +497,7 @@ class Scannable(Parser):
                 scanner(self, obj)
 
 
-class LogFileOutput(Parser):
+class LogFileOutput(six.with_metaclass(ScanMeta, Parser)):
     """Class for parsing log file content.
 
     Log file content is stored in raw format in the ``lines`` attribute.
@@ -528,7 +527,6 @@ class LogFileOutput(Parser):
         >>> my_logger.lines[0]
         'Log file line one'
     """
-    __metaclass__ = ScanMeta
 
     time_format = '%Y-%m-%d %H:%M:%S'
     """

@@ -553,7 +553,12 @@ class RawConfigParser:
                 if isinstance(val, list):
                     options[name] = '\n'.join(val)
 
-import UserDict as _UserDict
+try:
+    from collections import UserDict as _UserDict
+    from collections import MutableMapping as DictMixin
+    _UserDict.DictMixin = DictMixin
+except ImportError:
+    import UserDict as _UserDict
 
 class _Chainmap(_UserDict.DictMixin):
     """Combine multiple mappings for successive lookups.

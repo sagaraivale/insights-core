@@ -5,7 +5,11 @@ from __future__ import absolute_import
 import logging
 import os
 import requests
-from urlparse import urlparse
+
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib import parse as urlparse
 
 from .constants import InsightsConstants as constants
 from .cert_auth import rhsmCertificate

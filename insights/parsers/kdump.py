@@ -16,7 +16,12 @@ SysconfigKdump - file ``/etc/sysconfig/kdump``
 """
 
 import re
-from urlparse import urlparse
+
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib import parse as urlparse
+
 from .. import Parser, parser
 from insights.specs import Specs
 

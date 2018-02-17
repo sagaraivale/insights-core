@@ -18,7 +18,11 @@ SystemdSystemConf - file ``/etc/systemd/system.conf``
 
 """
 
-import StringIO
+try:
+    import StringIO
+except ImportError:
+    from io import StringIO
+
 from insights.core import Parser, LegacyItemAccess
 from insights.core.plugins import parser
 from insights.parsers import unsplit_lines

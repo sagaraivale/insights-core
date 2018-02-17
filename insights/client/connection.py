@@ -10,7 +10,10 @@ import logging
 import xml.etree.ElementTree as ET
 import warnings
 import socket
-from urlparse import urlparse
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib import parse as urlparse
 from OpenSSL import SSL, crypto
 
 from .utilities import (determine_hostname,

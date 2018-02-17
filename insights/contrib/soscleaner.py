@@ -124,7 +124,7 @@ class SOSCleaner:
             formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s: %(message)s', '%m-%d %H:%M:%S')
             console.setFormatter(formatter)
             console.setLevel(console_log_level)
-	self.logger = logging.getLogger(__name__)
+        self.logger = logging.getLogger(__name__)
         if not self.quiet:
             self.logger.addHandler(console) # pragma: no cover
 

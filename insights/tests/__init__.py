@@ -3,8 +3,14 @@ import copy
 import itertools
 import json
 import logging
-from six import wraps
-from StringIO import StringIO
+import traceback
+import six
+import six.moves
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 from insights import apply_filters
 from insights.core import dr
@@ -34,12 +40,12 @@ def unordered_compare(result, expected):
         assert result["type"] == "skip", result
         return
 
-    if not (type(result) in [unicode, str] and type(expected) in [unicode, str]):
+    if not (type(result) in six.string_types and type(expected) in six.string_types):
         assert type(result) == type(expected)
 
     if isinstance(result, list):
         assert len(result) == len(expected)
-        for left_item, right_item in itertools.izip(sorted(result), sorted(expected)):
+        for left_item, right_item in six.moves.zip(sorted(result), sorted(expected)):
             unordered_compare(left_item, right_item)
     elif isinstance(result, dict):
         assert len(result) == len(expected)
@@ -79,7 +85,7 @@ def context_wrap(lines,
                  version="-1.-1",
                  machine_id="machine_id",
                  **kwargs):
-    if isinstance(lines, basestring):
+    if isinstance(lines, six.string_types):
         lines = lines.strip().splitlines()
     return Context(content=lines,
                    path=path, hostname=hostname,
@@ -271,7 +277,7 @@ def archive_provider(component, test_func=unordered_compare, stride=1):
     [1] insights.tests.unordered_compare()
     """
     def _wrap(func):
-        @wraps(func)
+        @six.wraps(func)
         def __wrap(stride=stride):
             for input_data, expected in itertools.islice(func(), None, None, stride):
                 yield component, test_func, input_data, expected
