@@ -1316,5 +1316,5 @@ class AttributeDict(dict):
         self.__dict__ = self
 
     def __iter__(self):
-        for k, v in self.__dict__.iteritems():
+        for k, v in self.__dict__.items():
             yield k, v

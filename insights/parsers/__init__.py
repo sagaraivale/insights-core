@@ -501,7 +501,7 @@ def keyword_search(rows, **kwargs):
     def key_match(row, key, value):
         # Translate ' ' and '-' of keys in dict to '_' to match keyword arguments.
         my_row = {}
-        for my_key, val in row.iteritems():
+        for my_key, val in row.items():
             my_row[my_key.replace(' ', '_').replace('-', '_')] = val
         matcher_fn = matchers['default']
         if '__' in key:
@@ -515,6 +515,6 @@ def keyword_search(rows, **kwargs):
 
     data = []
     for row in rows:
-        if all(map(lambda kv: key_match(row, kv[0], kv[1]), kwargs.iteritems())):
+        if all(map(lambda kv: key_match(row, kv[0], kv[1]), kwargs.items())):
             data.append(row)
     return data

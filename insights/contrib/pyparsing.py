@@ -403,7 +403,7 @@ class ParseResults(object):
                 
         def items( self ):
             """Returns all named result keys and values as a list of tuples."""
-            return list(self.iteritems())
+            return list(self.items())
 
     def haskeys( self ):
         """Since keys() returns an iterator, this method is helpful in bypassing

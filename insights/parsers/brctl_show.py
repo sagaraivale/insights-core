@@ -100,6 +100,6 @@ class BrctlShow(Parser):
                     br_mapping[iface] = iface_lst
             for entry in self.data:
                 self._group_by_iface[entry['bridge name']] = \
-                    dict((k, v) for (k, v) in entry.iteritems() if k != 'bridge name')
+                    dict((k, v) for (k, v) in entry.items() if k != 'bridge name')
         else:
             raise ParseException("Invalid Data Found")

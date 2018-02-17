@@ -120,7 +120,7 @@ class BlockDevice(object):
     """
     def __init__(self, data):
         self.data = data
-        for k, v in data.iteritems():
+        for k, v in data.items():
             k = re.sub(r'[-:\.]', "_", k)
             setattr(self, k, v)
             setattr(self, k.lower(), v)
@@ -132,7 +132,7 @@ class BlockDevice(object):
         return self.data == other
 
     def iteritems(self):
-        return self.data.iteritems()
+        return self.data.items()
 
     def get(self, k, default=None):
         """Get any value by keyword (column) name."""

@@ -41,7 +41,7 @@ class SambaConfig(IniConfigFile):
         # Transform the section names so that whitespace around is stripped and they are lowercase.
         # smb.conf is special in the property that section names and option names are
         # case-insensitive and treated like lower-case.
-        for old_key, old_section in self.data._sections.iteritems():
+        for old_key, old_section in self.data._sections.items():
             new_key = old_key.strip().lower()
             if new_key not in new_dict:
                 new_dict[new_key] = self.data._dict()

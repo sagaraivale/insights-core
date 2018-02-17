@@ -380,7 +380,7 @@ class TestLVS(object):
     def test_lvs1(self):
         lvs_list = Lvs(context_wrap(LVS_INFO_1))
         assert len(lvs_list) == 6
-        for k, v in LVS_DOCKER_INFO1.iteritems():
+        for k, v in LVS_DOCKER_INFO1.items():
             assert lvs_list.data["content"][0][k] == v
         assert lvs_list["swap"]["LSize"] == "1.62g"
 
@@ -396,7 +396,7 @@ class TestLVS(object):
     def test_lvs2(self):
         lvs_list = Lvs(context_wrap(LVS_INFO_2))
         assert len(lvs_list) == 6
-        for k, v in LVS_DOCKER_INFO2.iteritems():
+        for k, v in LVS_DOCKER_INFO2.items():
             assert lvs_list.data["content"][0][k] == v
         assert lvs_list["root"]["LSize"] == "<13.62g"
 
@@ -425,5 +425,5 @@ def test_lvs_headers():
     assert len(lvs_info) == 9
     #  Test __getitem__ method
     for l in range(len(LVS_HEADER_BYKEY)):
-        for k, v in LVS_HEADER_BYKEY[l].iteritems():
+        for k, v in LVS_HEADER_BYKEY[l].items():
             assert lvs_info.data[l][k] == v

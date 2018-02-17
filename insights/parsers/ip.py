@@ -70,7 +70,7 @@ def parse_ip_addr(content):
             rx_next_line = True
         elif line.startswith("TX"):
             tx_next_line = True
-    for k, v in r.iteritems():
+    for k, v in r.items():
         if_details[k] = NetworkInterface(v)
     return if_details
 
@@ -251,7 +251,7 @@ class IpAddr(Parser):
 
 class Route(object):
     def __init__(self, data):
-        for k, v in data.iteritems():
+        for k, v in data.items():
             setattr(self, k, v)
 
     def __repr__(self):

@@ -44,8 +44,8 @@ def map_keys(pvs, keys):
     """
     rs = []
     for pv in pvs:
-        r = dict((v, None) for k, v in keys.iteritems())
-        for k, v in pv.iteritems():
+        r = dict((v, None) for k, v in keys.items())
+        for k, v in pv.items():
             if k in keys:
                 r[keys[k]] = v
             r[k] = v

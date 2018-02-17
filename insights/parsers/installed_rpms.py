@@ -296,7 +296,7 @@ class InstalledRpm(object):
         self.arch = None
         """str: RPM package architecture."""
 
-        for k, v in data.iteritems():
+        for k, v in data.items():
             setattr(self, k, v)
         if 'epoch' not in data:
             self.epoch = '0'

@@ -401,7 +401,7 @@ def test_ip_route_2():
 
     # by_prefix checks
     prefixes = tbl.by_prefix
-    for prefix, route in prefixes.iteritems():
+    for prefix, route in prefixes.items():
         assert route[0] in tbl.by_device[route[0].dev]
 
     # by_device checks

@@ -492,7 +492,7 @@ class SOSCleaner:
         ip_num = self._ip2int(ip)
         ip_found = False
         db = self.ip_db
-        for k,v in db.iteritems():
+        for k,v in db.items():
             if v == ip_num:
                 ret_ip = self._int2ip(k)
                 ip_found = True
@@ -513,7 +513,7 @@ class SOSCleaner:
         '''
         db = self.hn_db
         hn_found = False
-        for k,v in db.iteritems():
+        for k,v in db.items():
             if v == hn:  #the hostname is in the database
                 ret_hn = k
                 hn_found = True

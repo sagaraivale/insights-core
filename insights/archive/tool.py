@@ -346,7 +346,7 @@ class TestArchive(BaseArchive):
         if (input_data.version != ["-1", "-1"] and
                 not [t.path for t in self.transforms if t.path == "uname"]):
             rhel_version = ".".join(input_data.version)
-            for kernel, rhel in rhel_release_map.iteritems():
+            for kernel, rhel in rhel_release_map.items():
                 if rhel_version == rhel:
                     nvr_regex = " \d*\.\d*\.\d*-\d*"
                     self.transforms.append(Transform("uname").sub(nvr_regex, " " + kernel))

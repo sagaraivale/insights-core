@@ -403,13 +403,13 @@ def test_combiner_lvs(lvm_data):
             pool7 = lvm_info.logical_volumes[Lvm.LvVgName(LV='pool7', VG='data7')]
             if Lvs in data.shared:
                 assert pool7['LVM2_REGION_SIZE'] == '0'
-                for k, v in LVS_NOHEADINGS_POOL7.iteritems():
+                for k, v in LVS_NOHEADINGS_POOL7.items():
                     assert pool7[k] == v
             else:
                 assert 'LVM2_REGION_SIZE' not in pool7
                 assert pool7['Region'] is None
             if LvsHeadings in data.shared:
-                for k, v in LVS_HEADINGS_POOL7.iteritems():
+                for k, v in LVS_HEADINGS_POOL7.items():
                     assert pool7[k] == v
             assert lvm_info.logical_volume_names == set([
                 Lvm.LvVgName(LV='lv_brick1', VG='data1'),
