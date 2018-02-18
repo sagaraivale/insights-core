@@ -2,7 +2,8 @@ from __future__ import absolute_import
 import logging
 import optparse
 import os
-from insights.contrib import ConfigParser
+import six
+from six.moves import configparser as ConfigParser
 
 from .constants import InsightsConstants as constants
 
@@ -307,7 +308,7 @@ def parse_config_file(conf_file=constants.default_conf_file):
     except ConfigParser.Error:
         pass
     d = dict(parsedconfig.items(APP_NAME))
-    for key in (k for k in BOOLEAN_KEYS if type(d.get(k)) in (str, unicode)):
+    for key in (k for k in BOOLEAN_KEYS if type(d.get(k)) in six.string_types):
         d[key] = parsedconfig.getboolean(APP_NAME, key)
     return d
 

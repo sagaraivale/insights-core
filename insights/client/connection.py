@@ -5,6 +5,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import requests
 import os
+import six
 import json
 import logging
 import xml.etree.ElementTree as ET
@@ -13,13 +14,13 @@ import socket
 try:
     from urlparse import urlparse
 except ImportError:
-    from urllib import parse as urlparse
+    from urllib.parse import urlparse
 from OpenSSL import SSL, crypto
 
 from .utilities import (determine_hostname,
-                       generate_machine_id,
-                       write_to_disk,
-                       write_unregistered_file)
+                        generate_machine_id,
+                        write_to_disk,
+                        write_unregistered_file)
 from .cert_auth import rhsmCertificate
 from .constants import InsightsConstants as constants
 from .config import CONFIG as config
@@ -61,7 +62,7 @@ class InsightsConnection(object):
         self.password = config["password"]
 
         self.cert_verify = config["cert_verify"]
-        if type(self.cert_verify) in (str, unicode):
+        if type(self.cert_verify) in six.string_types:
             if self.cert_verify.lower() == 'false':
                 self.cert_verify = False
             elif self.cert_verify.lower() == 'true':
@@ -317,9 +318,9 @@ class InsightsConnection(object):
             logger.debug('---\nCertificate chain')
             for depth, c in enumerate(certs):
                 logger.debug(self._generate_cert_str(c.get_subject(),
-                                                    str(depth) + ' s :/'))
+                                                     str(depth) + ' s :/'))
                 logger.debug(self._generate_cert_str(c.get_issuer(),
-                                                    '  i :/'))
+                                                     '  i :/'))
             # print server cert
             server_cert = ssl_conn.get_peer_certificate()
             logger.debug('---\nServer certificate')

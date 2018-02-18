@@ -164,7 +164,7 @@ class JournaldConfAll(object):
             effective_confd[file_name] = parser_instance
 
         files_shadowed_not_used = sorted(files_shadowed_not_used)  # deterministic behavior, sorted paths
-        sorted_file_names = sorted(effective_confd.keys())
+        sorted_file_names = sorted(effective_confd.keys(), key=str)
 
         parsers_list = [effective_confd[file_name] for file_name in sorted_file_names]
         if central_file_lowest_prio:

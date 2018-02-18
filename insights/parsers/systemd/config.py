@@ -19,7 +19,7 @@ SystemdSystemConf - file ``/etc/systemd/system.conf``
 """
 
 try:
-    import StringIO
+    from StringIO import StringIO
 except ImportError:
     from io import StringIO
 
@@ -182,7 +182,7 @@ def parse_systemd_ini(content):
 
     Config = cp(dict_type=MultiOrderedDict)
     Config.optionxform = str
-    Config.readfp(StringIO.StringIO('\n'.join(content)))
+    Config.readfp(StringIO('\n'.join(content)))
 
     dict_all = {}
     for section in Config.sections():

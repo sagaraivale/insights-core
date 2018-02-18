@@ -276,7 +276,6 @@ def test_version_compare():
 def test_formatting():
     rpm = InstalledRpm.from_package('kernel-3.10.0-327.el7.x86_64')
     assert str(rpm) == '0:kernel-3.10.0-327.el7'
-    assert unicode(rpm) == u'0:kernel-3.10.0-327.el7'
     assert repr(rpm) == '0:kernel-3.10.0-327.el7'
 
 

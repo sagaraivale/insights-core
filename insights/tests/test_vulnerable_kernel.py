@@ -3,6 +3,7 @@ from insights.parsers.uname import Uname
 from insights.core.plugins import make_response
 from insights.tests import context_wrap, InputData, run_test
 from insights.specs import Specs
+from insights import specs_default
 
 from insights.plugins import vulnerable_kernel
 

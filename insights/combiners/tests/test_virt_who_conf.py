@@ -1,7 +1,7 @@
 from insights.combiners.virt_who_conf import AllVirtWhoConf
 from insights.parsers.virt_who_conf import VirtWhoConf
 from insights.parsers.sysconfig import VirtWhoSysconfig
-from insights.tests import context_wrap
+from insights.tests import context_wrap, unordered_compare
 
 VWHO_D_CONF_ESX = """
 ## This is a template for virt-who configuration files. Please see
@@ -104,11 +104,13 @@ def test_virt_who_conf_1():
     assert result.interval == 1000
     assert result.sm_type == 'sat6'
     assert sorted(result.hypervisor_types) == sorted(['esx', 'hyperv'])
-    assert sorted(result.hypervisors) == sorted([
-        {'name': 'esx_1', 'server': '10.72.32.219', 'env': 'Satellite',
-         'owner': 'Satellite', 'type': 'esx'},
-        {'name': 'hyperv_1', 'server': '10.72.32.209', 'env': 'Satellite',
-         'owner': 'Satellite', 'type': 'hyperv'}])
+
+    expected = [{'name': 'esx_1', 'server': '10.72.32.219', 'env': 'Satellite',
+                 'owner': 'Satellite', 'type': 'esx'},
+                {'name': 'hyperv_1', 'server': '10.72.32.209', 'env': 'Satellite',
+                 'owner': 'Satellite', 'type': 'hyperv'}]
+    for d in result.hypervisors:
+        assert d in expected
 
 
 def test_virt_who_conf_2():

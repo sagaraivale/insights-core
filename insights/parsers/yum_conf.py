@@ -57,9 +57,11 @@ Examples:
      'logfile': '/var/log/yum.log'}
 """
 
+import six
 from insights.contrib.ConfigParser import NoOptionError
 from .. import parser, IniConfigFile
 from insights.specs import Specs
+import six
 
 
 @parser(Specs.yum_conf)
@@ -74,7 +76,7 @@ class YumConf(IniConfigFile):
             for key in ('gpgkey', 'baseurl'):
                 try:
                     value = self.get(section, key)
-                    if value and isinstance(value, str):
+                    if value and isinstance(value, six.string_types):
                         self.data.set(section, key, value.split(','))
                 except NoOptionError:
                     pass

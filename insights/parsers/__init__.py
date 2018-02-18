@@ -53,7 +53,7 @@ def get_active_lines(lines, comment_char="#"):
         >>> get_active_lines(lines)
         ['First line', 'Inline comment', 'Whitespace', 'Last line']
     """
-    return filter(None, (line.split(comment_char, 1)[0].strip() for line in lines))
+    return list(filter(None, (line.split(comment_char, 1)[0].strip() for line in lines)))
 
 
 def optlist_to_dict(optlist, opt_sep=',', kv_sep='=', strip_quotes=False):

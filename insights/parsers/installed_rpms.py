@@ -78,8 +78,8 @@ Examples:
     True
 """
 import json
+import re
 from collections import defaultdict
-from distutils.version import LooseVersion as LV
 
 from ..util import rsplit
 from .. import Parser, parser, get_active_lines
@@ -238,6 +238,45 @@ class InstalledRpms(Parser):
         rpm = self.get_max("vdsm")
         return (True if rpm and rpm.release.endswith((".el6ev", ".el7ev")) else
                 False)
+
+
+p = re.compile(r"(\d+|[a-z]+|\.|-|_)")
+
+
+def _int_or_str(c):
+    try:
+        return int(c)
+    except ValueError:
+        return c
+
+
+def vcmp(s):
+    return [_int_or_str(c) for c in p.split(s) if c and c not in (".", "_", "-")]
+
+
+def pad_version(left, right):
+    """Returns two sequences of the same length so that they can be compared.
+    The shorter of the two arguments is lengthed by inserting extra zeros
+    before non-integer components.  The algorithm attempts to align character
+    components."""
+    pair = vcmp(left), vcmp(right)
+
+    mn, mx = min(pair, key=len), max(pair, key=len)
+
+    for idx, c in enumerate(mx):
+
+        try:
+            a = mx[idx]
+            b = mn[idx]
+            if type(a) != type(b):
+                mn.insert(idx, 0)
+        except IndexError:
+            if type(c) is int:
+                mn.append(0)
+            else:
+                raise
+
+    return pair
 
 
 class InstalledRpm(object):
@@ -475,7 +514,7 @@ class InstalledRpm(object):
         return '{0}:{1}'.format(self.epoch, self.package)
 
     def __unicode__(self):
-        return unicode(str(self))
+        return str(self)
 
     def __repr__(self):
         return str(self)
@@ -491,13 +530,17 @@ class InstalledRpm(object):
             raise ValueError('Cannot compare packages that one has distribution while the other does not {0} != {1}'
                              .format(self.package, other.package))
 
+        self_ep, other_ep = pad_version(self.epoch, other.epoch)
+        self_v, other_v = pad_version(self.version, other.version)
+        self_rl, other_rl = pad_version(self.release, other.release)
         eq_ret = (type(self) == type(other) and
-                  LV(self.epoch) == LV(other.epoch) and
-                  LV(self.version) == LV(other.version) and
-                  LV(self.release) == LV(other.release))
+                  self_ep == other_ep and
+                  self_v == other_v and
+                  self_rl == other_rl)
 
         if self._distribution:
-            return eq_ret and LV(self._distribution) == LV(other._distribution)
+            self_d, other_d = pad_version(self._distribution, other._distribution)
+            return eq_ret and self_d == other_d
         else:
             return eq_ret
 
@@ -508,21 +551,22 @@ class InstalledRpm(object):
         if self == other:
             return False
 
-        self_ep, other_ep = LV(self.epoch), LV(other.epoch)
+        self_ep, other_ep = pad_version(self.epoch, other.epoch)
         if self_ep != other_ep:
             return self_ep < other_ep
 
-        self_v, other_v = LV(self.version), LV(other.version)
+        self_v, other_v = pad_version(self.version, other.version)
         if self_v != other_v:
             return self_v < other_v
 
-        self_rl, other_rl = LV(self._release_sep), LV(other._release_sep)
+        self_rl, other_rl = pad_version(self._release_sep, other._release_sep)
         if self_rl != other_rl:
             return self_rl < other_rl
 
         # If we reach this point, the self == other test has determined that
         # we have a _distribution, so we rely on that.
-        return LV(self._distribution) < LV(other._distribution)
+        self_d, other_d = pad_version(self._distribution, other._distribution)
+        return self_d < other_d
 
     def __ne__(self, other):
         return not self == other

@@ -52,8 +52,8 @@ def test_checkin_conf():
 
 def test_checkin_conf_doc_examples():
     env = {
-            'CheckinConf': CheckinConf,
-            'checkin_conf': CheckinConf(context_wrap(CONFIG))
-          }
+        'CheckinConf': CheckinConf,
+        'checkin_conf': CheckinConf(context_wrap(CONFIG))
+    }
     failed, total = doctest.testmod(checkin_conf, globs=env)
     assert failed == 0

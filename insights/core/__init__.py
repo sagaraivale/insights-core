@@ -566,10 +566,10 @@ class LogFileOutput(six.with_metaclass(ScanMeta, Parser)):
         Check this given `s`, it must be a string or a list of strings.
         Otherwise, a TypeError will be raised.
         """
-        if isinstance(s, str):
+        if isinstance(s, six.string_types):
             return lambda l: s in l
         elif (isinstance(s, list) and len(s) > 0 and
-                    all(isinstance(w, str) for w in s)):
+              all(isinstance(w, six.string_types) for w in s)):
             return lambda l: all(w in l for w in s)
         elif s is not None:
             raise TypeError('Search items must be given as a string or a list of strings')
@@ -746,8 +746,8 @@ class LogFileOutput(six.with_metaclass(ScanMeta, Parser)):
         # flag and timestamp parser function appropriately.
         # Grab values of dict as a list first
         if isinstance(time_format, dict):
-            time_format = time_format.values()
-        if isinstance(time_format, str):
+            time_format = list(time_format.values())
+        if isinstance(time_format, six.string_types):
             logs_have_year = ('%Y' in time_format or '%y' in time_format)
             time_re = re.compile('(' + timefmt_re.sub(replacer, time_format) + ')')
 
@@ -959,7 +959,7 @@ class IniConfigFile(Parser):
                                                      allow_no_values=True)
         """
         config = RawConfigParser(allow_no_value=allow_no_value)
-        fp = io.BytesIO("\n".join(content))
+        fp = io.StringIO(u"\n".join(content))
         config.readfp(fp, filename=self.file_name)
         self.data = config
 

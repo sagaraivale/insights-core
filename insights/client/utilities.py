@@ -12,7 +12,7 @@ import re
 import stat
 import json
 from subprocess import Popen, PIPE, STDOUT
-from insights.contrib.ConfigParser import RawConfigParser
+from six.moves.configparser import RawConfigParser
 
 from .constants import InsightsConstants as constants
 from .config import CONFIG as config
@@ -232,6 +232,7 @@ def magic_plan_b(filename):
     '''
     cmd = shlex.split('file --mime-type --mime-encoding ' + filename)
     stdout, stderr = Popen(cmd, stdout=PIPE).communicate()
+    stdout = stdout.decode("utf-8")
     mime_str = stdout.split(filename + ': ')[1].strip()
     return mime_str
 
@@ -245,7 +246,7 @@ def generate_container_id(container_name):
 
 
 def run_command_get_output(cmd):
-    proc = Popen(shlex.split(cmd.encode("utf-8")),
+    proc = Popen(shlex.split(cmd),
                  stdout=PIPE, stderr=STDOUT)
     stdout, stderr = proc.communicate()
 

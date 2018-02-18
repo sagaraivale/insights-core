@@ -55,8 +55,8 @@ class CheckinConf(IniConfigFile):
 
     Examples:
         >>> checkin_conf.sections()
-        ['logging', 'spacewalk', 'katello']
+        [u'logging', u'spacewalk', u'katello']
         >>> checkin_conf.get('spacewalk', 'host')
-        ''
+        u''
     """
     pass

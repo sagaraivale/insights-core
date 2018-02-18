@@ -2,6 +2,7 @@ import itertools
 import logging
 import os
 import re
+import six
 import traceback
 
 from collections import defaultdict
@@ -291,12 +292,12 @@ class SpecSetMeta(type):
         _resolve_registry_points(cls, bases[0], dct)
 
 
-class SpecSet(object):
+class SpecSet(six.with_metaclass(SpecSetMeta)):
     """
     The base class for all spec declarations. Extend this class and define your
     datasources directly or with a `SpecFactory`.
     """
-    __metaclass__ = SpecSetMeta
+    pass
 
 
 def _get_context(context, alternatives, broker):
