@@ -7,7 +7,6 @@ import shutil
 import subprocess
 import shlex
 import tempfile
-import types
 from contextlib import contextmanager
 
 from insights.config import CommandSpec

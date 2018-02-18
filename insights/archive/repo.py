@@ -2,7 +2,6 @@ from __future__ import print_function
 import hashlib
 import os
 import sys
-import types
 from .tool import TestArchive, Transform, MultiArchive
 from insights.tests import InputData
 from insights.core import load_package

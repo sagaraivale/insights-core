@@ -1,7 +1,7 @@
 from insights.combiners.virt_who_conf import AllVirtWhoConf
 from insights.parsers.virt_who_conf import VirtWhoConf
 from insights.parsers.sysconfig import VirtWhoSysconfig
-from insights.tests import context_wrap, unordered_compare
+from insights.tests import context_wrap
 
 VWHO_D_CONF_ESX = """
 ## This is a template for virt-who configuration files. Please see

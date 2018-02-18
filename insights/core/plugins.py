@@ -5,7 +5,6 @@ specializes their interfaces and execution model where required.
 
 import logging
 import traceback
-import types
 
 from functools import partial
 
