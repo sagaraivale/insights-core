@@ -61,7 +61,6 @@ import six
 from insights.contrib.ConfigParser import NoOptionError
 from .. import parser, IniConfigFile
 from insights.specs import Specs
-import six
 
 
 @parser(Specs.yum_conf)
