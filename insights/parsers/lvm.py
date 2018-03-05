@@ -648,4 +648,4 @@ if __name__ == "__main__":
     headers = [h.strip().replace(" ", "_") for h in content[0].split("|")]
     nameprefixes = [v.split("=")[0].strip() for v in content[1].replace("0 ", "0").split("|")]
     pairs = zip(nameprefixes, headers)
-    print(json.dumps(OrderedDict(sorted(pairs, cmp=lambda x, y: cmp(x[0], y[0])))))
+    print(json.dumps(OrderedDict(sorted(pairs))))

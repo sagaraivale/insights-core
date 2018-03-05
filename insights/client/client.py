@@ -7,14 +7,15 @@ import logging.handlers
 import os
 import time
 import shutil
+import six
 
 from .auto_config import (_try_satellite6_configuration,
-                         _try_satellite5_configuration)
+                          _try_satellite5_configuration)
 from .utilities import (generate_machine_id,
-                       generate_analysis_target_id,
-                       write_to_disk,
-                       write_unregistered_file,
-                       determine_hostname)
+                        generate_analysis_target_id,
+                        write_to_disk,
+                        write_unregistered_file,
+                        determine_hostname)
 from .collection_rules import InsightsConfig
 from .data_collector import DataCollector
 from .connection import InsightsConnection
@@ -67,7 +68,7 @@ def configure_level():
     config_level = 'DEBUG' if config['verbose'] else config['loglevel']
 
     init_log_level = logging.getLevelName(config_level)
-    if type(init_log_level) in (str, unicode):
+    if type(init_log_level) in six.string_types:
         print("Invalid log level %s, defaulting to DEBUG" % config_level)
         init_log_level = logging.DEBUG
 
@@ -514,7 +515,7 @@ def upload(tar_file, collection_duration=None):
             account_number = config.get('account_number')
             if account_number:
                 logger.info("Successfully uploaded report from %s to account %s." % (
-                        machine_id, account_number))
+                            machine_id, account_number))
             else:
                 logger.info("Successfully uploaded report for %s." % (machine_id))
             break

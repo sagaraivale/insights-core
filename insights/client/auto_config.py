@@ -90,8 +90,8 @@ def _try_satellite6_configuration():
         rhsm_config = initConfig()
 
         logger.debug('Trying to autoconfigure...')
-        cert = file(rhsmCertificate.certpath(), 'r').read()
-        key = file(rhsmCertificate.keypath(), 'r').read()
+        cert = open(rhsmCertificate.certpath(), 'r').read()
+        key = open(rhsmCertificate.keypath(), 'r').read()
         rhsm = rhsmCertificate(key, cert)
 
         # This will throw an exception if we are not registered
@@ -163,7 +163,7 @@ def _try_satellite5_configuration():
             return False
 
         logger.debug("Found Satellite 5 Config")
-        rhn_conf_file = file(rhn_config, 'r')
+        rhn_conf_file = open(rhn_config, 'r')
         hostname = None
         for line in rhn_conf_file:
             if line.startswith('serverURL='):
