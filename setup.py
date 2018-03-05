@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 __here__ = os.path.dirname(os.path.abspath(__file__))
 
-package_info = dict((k, None) for k in ["RELEASE", "COMMIT", "VERSION", "NAME"])
+package_info = dict.fromkeys(["RELEASE", "COMMIT", "VERSION", "NAME"])
 
 for name in package_info:
     with open(os.path.join(__here__, "insights", name)) as f:
