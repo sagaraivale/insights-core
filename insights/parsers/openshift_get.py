@@ -285,6 +285,16 @@ class OcGetRolebinding(YAMLParser):
         return metadata_name_items(self.data)
 
 
+@parser('oc_get_route')
+class OcGetRoute(YAMLParser):
+    """Class to parse ``oc get route -o yaml --all-namespaces``"""
+
+    @property
+    def routes(self):
+        """ dict: Returns a dictionary of openshift route information."""
+        return metadata_name_items(self.data)
+
+
 @parser('oc_get_service')
 class OcGetService(YAMLParser):
     """Class to parse ``oc get service -o yaml --all-namespaces``"""

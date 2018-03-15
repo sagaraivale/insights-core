@@ -515,6 +515,7 @@ openshift = {
     "oc_get_rc"                 : CommandSpec("/usr/bin/oc get rc -o yaml --all-namespaces"),
     "oc_get_role"               : CommandSpec("/usr/bin/oc get role -o yaml --all-namespaces"),
     "oc_get_rolebinding"        : CommandSpec("/usr/bin/oc get rolebinding -o yaml --all-namespaces"),
+    "oc_get_route"              : CommandSpec("/usr/bin/oc get route -o yaml --all-namespaces"),
     "oc_get_service"            : CommandSpec("/usr/bin/oc get service -o yaml --all-namespaces")
 }
 """dict: Openshift specific data collection specifications."""
