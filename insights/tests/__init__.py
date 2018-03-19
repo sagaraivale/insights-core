@@ -3,7 +3,6 @@ import copy
 import itertools
 import json
 import logging
-import traceback
 import six
 import six.moves
 

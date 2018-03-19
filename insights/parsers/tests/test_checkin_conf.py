@@ -1,5 +1,3 @@
-import doctest
-
 from insights.parsers import checkin_conf
 from insights.parsers.checkin_conf import CheckinConf
 from insights.tests import context_wrap
