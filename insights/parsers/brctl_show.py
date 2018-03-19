@@ -79,9 +79,9 @@ class BrctlShow(Parser):
         self._group_by_iface = {}
         self.data = []
         if "\t" in content[0]:
-            head_line = filter(None, [v.strip() for v in content[0].split('\t')])
+            head_line = list(filter(None, [v.strip() for v in content[0].split('\t')]))
         else:
-            head_line = filter(None, [v.strip() for v in content[0].split('  ')])
+            head_line = list(filter(None, [v.strip() for v in content[0].split('  ')]))
         iface = head_line[3] if len(head_line) >= 3 else None
         if iface:
             for line in content[1:]:
