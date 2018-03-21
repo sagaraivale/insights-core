@@ -24,22 +24,22 @@ CONFIGS = [
 config = {}
 
 for c in CONFIGS:
-        try:
-            y = yaml.safe_load(c)
-            for name, section in y.items():
-                if name in config:
-                    config[name].update(section)
-                else:
-                    config[name] = section
-        except Exception as e:
-            print(c)
-            print(e)
+    if c is None:
+        continue
+    try:
+        y = yaml.safe_load(c)
+        for name, section in y.items():
+            if name in config:
+                config[name].update(section)
+            else:
+                config[name] = section
+    except Exception as e:
+        print(c)
+        print(e)
 
 # The defaults section is for keys that belong in every section and can be
 # overridden in particular sections if desired.  This adds the default values
 # to each section if they aren't already there.
-
-print(config)
 
 for k in config["defaults"]:
     for section in set(s for s in config if s != "defaults"):
