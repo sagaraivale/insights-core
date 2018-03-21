@@ -81,6 +81,8 @@ import json
 import re
 from collections import defaultdict
 
+import six
+
 from ..util import rsplit
 from .. import Parser, parser, get_active_lines
 from insights.specs import Specs
@@ -273,8 +275,10 @@ def pad_version(left, right):
         except IndexError:
             if type(c) is int:
                 mn.append(0)
+            elif isinstance(c, six.string_types):
+                mn.append('')
             else:
-                raise
+                raise Exception("pad_version failed (%s) (%s)" % (left, right))
 
     return pair
 

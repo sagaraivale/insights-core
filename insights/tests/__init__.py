@@ -39,7 +39,7 @@ def unordered_compare(result, expected):
         assert result["type"] == "skip", result
         return
 
-    if not (type(result) in six.string_types and type(expected) in six.string_types):
+    if not all(isinstance(o, six.string_types) for o in (result, expected)):
         assert type(result) == type(expected)
 
     if isinstance(result, list):
